@@ -170,9 +170,9 @@ const Order = () => {
                     </TableCell>
                     <TableCell className="px-6 py-4 max-w-[156px] flex flex-col text-left gap-2">
                       <p className="text-sm font-semibold">
-                        {order.userId.userName}
+                        {order.userId?.userName || 'Unknown User'}
                       </p>
-                      <p className="text-sm font-normal text-[#3F4145]">{order.userId.email}</p>
+                      <p className="text-sm font-normal text-[#3F4145]">{order.userId?.email || 'No email'}</p>
                     </TableCell>
                     <TableCell className="px-6 max-w-[156px]">
                       {dayjs(order?.createAt).format("YYYY-MM-DD")}
@@ -197,7 +197,7 @@ const Order = () => {
                     </TableCell>
 
                     <TableCell className=" py-4 flex gap-4 items-center justify-center">
-                      <Link href={`/dashboard/OrderDetail?id=${order.userId._id}`}>
+                      <Link href={`/dashboard/OrderDetail?id=${order.userId?._id}`}>
                         <ChevronRight />
                       </Link>
                     </TableCell>

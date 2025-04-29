@@ -172,7 +172,7 @@ const Income = () => {
                 {takeIncome.map((income) => (
               <TableRow key={income?._id} >
                   <TableCell>{income?.orderNumber}</TableCell>
-                  <TableCell>{income?.userId.email}</TableCell>
+                  <TableCell>email</TableCell>
                   <TableCell>{income?.paymentAmount}</TableCell>
                   <TableCell>{dayjs(income?.createAt).format("YYYY-MM-DD")}</TableCell>
               </TableRow>

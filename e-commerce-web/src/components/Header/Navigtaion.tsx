@@ -114,13 +114,20 @@ export const Navigation = () => {
 
               <button
                 onClick={() => {
+                  router.push("/Basket");
+                }}
+              >
+                <ShoppingCart />
+              </button>
+              {/* <button
+                onClick={() => {
                   Cookies.get("token")
                     ? router.push("/Basket")
                     : alert("худалдан авалт хийхээс өмнө нэвтэрнэ үү");
                 }}
               >
                 <ShoppingCart />
-              </button>
+              </button> */}
             </div>
             {value?.cookie ? (
               <div>
