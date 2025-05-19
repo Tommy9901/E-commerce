@@ -10,7 +10,7 @@ export const DashboardAside = () => {
   return (
     <div className="flex flex-col gap-4 text-base mt-6 bg-[#FFFFFF] min-h-screen">
       <Link
-        href={"/dashboard/dashboard?select=Хяналтын самбар"}
+        href={"/dashboard?select=Хяналтын самбар"}
         className={`flex py-2 px-4 gap-2 hover:cursor-pointer ${
           select === "Хяналтын самбар" && "bg-[#F7F7F8]"
         }`}
@@ -44,7 +44,7 @@ export const DashboardAside = () => {
         <div className="text-[#121316] text-nowrap">Хяналтын самбар</div>
       </Link>
       <Link
-        href={"/dashboard/order?select=Захиaлга"}
+        href={"/order?select=Захиaлга"}
         className={`flex py-2 px-4 gap-2 hover:cursor-pointer ${
           select === "Захиaлга" && "bg-[#F7F7F8]"
         }`}
@@ -67,7 +67,7 @@ export const DashboardAside = () => {
         <div className="text-[#121316]">Захиaлга</div>
       </Link>
       <Link
-        href={"/dashboard/income?select=Орлого"}
+        href={"/income?select=Орлого"}
         className={`flex py-2 px-4 gap-2 hover:cursor-pointer ${
           select === "Орлого" && "bg-[#F7F7F8]"
         }`}
@@ -94,7 +94,7 @@ export const DashboardAside = () => {
       </Link>
 
       <Link
-        href={`/dashboard/product?select=Бүтээгдэхүүн`}
+        href={`/product?select=Бүтээгдэхүүн`}
         className={`flex py-2 px-4 gap-2 hover:cursor-pointer ${
           select === "Бүтээгдэхүүн" && "bg-[#F7F7F8]"
         }`}
@@ -117,7 +117,7 @@ export const DashboardAside = () => {
       </Link>
 
       <Link
-        href={"/dashboard/settings?select=Тохиргоо"}
+        href={"/settings?select=Тохиргоо"}
         className={`flex py-2 px-4 gap-2 hover:cursor-pointer ${
           select === "Тохиргоо" && "bg-[#F7F7F8]"
         }`}

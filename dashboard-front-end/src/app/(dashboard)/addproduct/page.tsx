@@ -202,7 +202,7 @@ const AddProduct = () => {
         <div className="w-full text-nowrap bg-[#F7F7F8]">
           <div className="flex py-4 bg-[#ffffff] items-center">
             <Link
-              href={"/dashboard/product"}
+              href={"/product"}
               className="px-4 hover:cursor-pointer"
             >
               <svg

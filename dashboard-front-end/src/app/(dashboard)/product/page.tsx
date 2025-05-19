@@ -167,7 +167,7 @@ const Product = () => {
           <div className="p-4 hover:cursor-pointer">Ангилал</div>
         </div>
         <Link
-          href={"/dashboard/addproduct"}
+          href={"/addproduct"}
           className="flex gap-1 bg-[#121316] px-[45px] py-3 hover:bg-blend-darken ml-6 rounded-[8px] max-w-[280px] w-full items-center hover:cursor-pointer "
         >
           <svg

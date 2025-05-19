@@ -1,4 +1,4 @@
-import { FormValues } from "@/app/dashboard/addproduct/page";
+import { FormValues } from "@/app/(dashboard)/addproduct/page";
 import { Input } from "./ui/input";
 import { ChangeEvent } from "react";
 import { FormikErrors, FormikTouched } from "formik";

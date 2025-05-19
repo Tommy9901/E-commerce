@@ -6,12 +6,11 @@ import Link from "next/link";
 import { Heart, Search, ShoppingCart } from "lucide-react";
 
 import { Input } from "../ui/input";
-import { createContext, useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Context, ProductType } from "../Card";
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
 import { Button } from "../ui/button";
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 
 export const Navigation = () => {
   const [savedProduct, setSavedProduct] = useState([]);
@@ -41,7 +40,7 @@ export const Navigation = () => {
       <div className="max-w-[1440px] mx-auto py-4 px-6  bg-[#000000] text-white">
         <div className="flex justify-between items-center">
           <div className="flex gap-8">
-            <a href="/" className="flex gap-2">
+            <Link href="/" className="flex gap-2">
               <div className="w-8 h-[27px]">
                 <Image
                   className="w-8 h-[27px]"
@@ -51,8 +50,8 @@ export const Navigation = () => {
                   alt="logo"
                 />
               </div>
-              <p>ECOMMERCEE</p>
-            </a>
+              <p className="text-white">ECOMMERCEE</p>
+            </Link>
             <div>
               <Link
                 href={"/Category"}
@@ -63,7 +62,7 @@ export const Navigation = () => {
             </div>
           </div>
           <div className="flex items-center gap-2 px-4 py-2 rounded-[20px] bg-[#18181B] relative">
-            <Search className="" />
+            <Search className="text-white" />
             <Input
               className="w-[200px]  outline-none resize-none border-[#18181B] text-sm font-normal focus-visible:ring-0"
               type="input"
@@ -84,16 +83,18 @@ export const Navigation = () => {
                         className="flex gap-2 bg-white text-[#000000] rounded-lg shadow border w-full"
                         key={item._id}
                       >
-                        <div>
-                          <Image
-                            src={item.images[0] || "/"}
-                            alt="image"
-                            width={50}
-                            height={50}
-                            className="rounded-full object-cover w-10 h-10"
-                          />
+                        <div className="flex gap-2">
+                          <div className="p-2">
+                            <Image
+                              src={item.images[0] || "/"}
+                              alt="image"
+                              width={50}
+                              height={50}
+                              className="rounded-full object-cover w-10 h-10"
+                            />
+                          </div>
+                          <div className="p-2">{item.productName}</div>
                         </div>
-                        <div>{item.productName}</div>
                       </div>
                     )
                 )}

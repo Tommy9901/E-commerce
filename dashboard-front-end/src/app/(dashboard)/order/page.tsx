@@ -67,7 +67,7 @@ const Order = () => {
   }, [incomeFilter]);
 
   return (
-    <div className="flex max-w-[1440px] mx-auto">
+    <div className="flex max-w-[1440px]">
       <DashboardAside />
       <div className="flex flex-col w-full">
         <div className="flex font-normal text-sm text-[#3F4145]">
@@ -197,7 +197,7 @@ const Order = () => {
                     </TableCell>
 
                     <TableCell className=" py-4 flex gap-4 items-center justify-center">
-                      <Link href={`/dashboard/OrderDetail?id=${order.userId?._id}`}>
+                      <Link href={`/OrderDetail?id=${order.userId?._id}`}>
                         <ChevronRight />
                       </Link>
                     </TableCell>

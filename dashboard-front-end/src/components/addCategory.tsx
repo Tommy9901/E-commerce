@@ -1,9 +1,9 @@
 import { Check, Plus } from "lucide-react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
-import { colors } from "@/app/dashboard/addProduct";
+import { colors } from "@/app/(dashboard)/addProduct";
 import { filters } from "./DashboardSelect";
-import { FormValues, sizes } from "@/app/dashboard/addproduct/page";
+import { FormValues, sizes } from "@/app/(dashboard)/addproduct/page";
 import { ChangeEvent } from "react";
 import { FormikErrors, FormikTouched } from "formik";
 type Props = {

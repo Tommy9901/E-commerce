@@ -5,7 +5,7 @@ import { ChangeEvent, useEffect, useState } from "react";
 import { Button } from "./ui/button";
 import { useRouter, useSearchParams } from "next/navigation";
 import { FormikTouched } from "formik";
-import { FormValues } from "@/app/dashboard/addproduct/page";
+import { FormValues } from "@/app/(dashboard)/addproduct/page";
 type Props = {
   setImage: (value: FileList) => void;
   image: FileList | null;

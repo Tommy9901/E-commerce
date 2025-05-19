@@ -34,12 +34,12 @@ export default function Home() {
     value?.setUpdateShoppingCart(basketProducts);
   };
 
-  // useEffect(() => {
-  //   if (!Cookies.get("token")) {
-  //     router.push("/Login");
-  //   }
-  //   getShoppingCart();
-  // }, []);
+  useEffect(() => {
+    if (!Cookies.get("token")) {
+      router.push("/Login");
+    }
+    getShoppingCart();
+  }, []);
 
   return (
     <div className="bg-[#F7F7F8]">
