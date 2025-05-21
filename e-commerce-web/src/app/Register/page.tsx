@@ -71,11 +71,6 @@ export default function Register() {
       toast({
         title: "Алдаа гарлаа",
         description: "Бүртгэлтэй хэрэглэгч байна.",
-        // action: (
-        //   <ToastAction className="text-red-500" altText="Try again">
-        //     Try again
-        //   </ToastAction>
-        // ),
       });
 
       resetForm();

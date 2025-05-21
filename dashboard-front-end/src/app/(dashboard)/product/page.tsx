@@ -8,15 +8,12 @@ import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
-  TableFooter,
   TableHead,
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
 import { EditIcon, Trash, TrashIcon } from "lucide-react";
-import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 
 import { Calendar } from "@/components/ui/calendar";
@@ -31,7 +28,6 @@ import { format } from "date-fns";
 import { DateRange } from "react-day-picker";
 import { DashboardAside } from "@/components/Dashboard";
 import { filters } from "@/components/DashboardSelect";
-import Image from "next/image";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 export type ProductType =
@@ -43,7 +39,7 @@ export type ProductType =
       categoryId: string;
       qty: number;
       thumbnails: string;
-      images: string;
+      images: string[];
       coupon: string;
       salePercent: number;
       description: string;

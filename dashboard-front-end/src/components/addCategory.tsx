@@ -6,6 +6,7 @@ import { filters } from "./DashboardSelect";
 import { FormValues, sizes } from "@/app/(dashboard)/addproduct/page";
 import { ChangeEvent } from "react";
 import { FormikErrors, FormikTouched } from "formik";
+
 type Props = {
   setShowCategory: (value: boolean) => void;
   showCategory: boolean;
@@ -24,6 +25,7 @@ type Props = {
   valueError: FormikErrors<FormValues>;
   valueTouched: FormikTouched<FormValues>;
 };
+
 export const AddCategory = ({
   valueTouched,
   categoryType,
@@ -46,12 +48,13 @@ export const AddCategory = ({
     const newProductSize = [...productSize];
     newProductSize.push(size);
     setProductSize(newProductSize);
-    console.log(productSize);
   };
+
   const checkSizes = (size: string) => {
     const checkSize = productSize.filter((item) => item !== size);
     setProductSize(checkSize);
   };
+
   const addSizesAndCheckSizes = (size: string) => {
     const checkedSize = productSize.includes(size);
     if (checkedSize) {
@@ -66,10 +69,12 @@ export const AddCategory = ({
     newProductColor.push(color);
     setProductColor(newProductColor);
   };
+
   const checkColor = (color: string) => {
     const includeColor = productColor.filter((item) => item !== color);
     setProductColor(includeColor);
   };
+
   const addColorAndCheckColor = (color: string) => {
     const checkedColor = productColor.includes(color);
 

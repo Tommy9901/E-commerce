@@ -4,11 +4,7 @@ import { Card } from "@/components/Card";
 import basketProducts from "@/app/datas.json";
 import Image from "next/image";
 import Link from "next/link";
-
 import { useState, useEffect } from "react";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { BasketCard } from "@/components/BasketCard";
 
 type paymentStatus = "Paid" | "Not paid";
 type paymentType = "Card" | "Qpay" | "SocialPay";

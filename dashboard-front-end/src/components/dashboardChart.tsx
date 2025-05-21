@@ -9,19 +9,21 @@ const data = {
 
 export function DashboardChart() {
   return (
-    <div className="flex flex-col gap-6">
-      <div className="flex py-2">
-        <div className="flex-1">Борлуулалт</div>
-        <div>
-          <ArrowRight />
-        </div>
+    <div className="flex flex-col gap-6 p-6 bg-white rounded-lg shadow-sm">
+      <div className="flex items-center justify-between py-2">
+        <div className="text-lg font-semibold text-gray-800">Борлуулалт</div>
+        <button className="p-2 hover:bg-gray-100 rounded-full transition-colors">
+          <ArrowRight className="w-5 h-5 text-gray-600" />
+        </button>
       </div>
-      <div className="flex flex-col gap-[14px] relative">
+      <div className="flex flex-col gap-[14px] relative min-h-[300px]">
         <div className="flex flex-col gap-9">
           {data.sales.map((amount) => (
             <div key={amount} className="flex gap-[14px] items-center">
-              <div className="w-[38px]">{amount / 1000}K</div>
-              <div className="flex-1 border-dashed border-[#D6D8DB] border-[1px] h-[1px]"></div>
+              <div className="w-[38px] text-sm text-gray-600 font-medium">
+                {amount / 1000}K
+              </div>
+              <div className="flex-1 border-dashed border-gray-200 border-[1px] h-[1px]"></div>
             </div>
           ))}
         </div>
@@ -29,14 +31,18 @@ export function DashboardChart() {
           {data.sales.map((dataChar) => (
             <div
               key={dataChar}
-              className="w-2 bg-black rounded-full"
+              className="w-3 bg-blue-500 rounded-t-md transition-all duration-300 hover:bg-blue-600 cursor-pointer group relative"
               style={{ height: `${(240 * dataChar) / 400000}px` }}
-            ></div>
+            >
+              <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+                {dataChar.toLocaleString()}₮
+              </div>
+            </div>
           ))}
         </div>
-        <div className="flex gap-[33px] ml-[60px] items-center">
+        <div className="flex gap-[33px] ml-[60px] items-center mt-4">
           {data.date.map((date) => (
-            <div key={date}>{date}</div>
+            <div key={date} className="text-sm text-gray-600">{date}</div>
           ))}
         </div>
       </div>

@@ -19,113 +19,112 @@ import { paymentType } from "../income/page";
 const Order = () => {
   const orderStatus = [
     { name: "Бүгд", value: "all" },
-    { name: "Шинэ захиалага", value: "new orders" },
-    { name: "Бэлтгэгдэж байна", value: "prepared" },
-    { name: "Хүргэлтэнд гарсан", value: "delivered" },
-    { name: "Хүргэгдсэн", value: "done" },
-    { name: "Цуцлагдсан", value: "cancelled" },
+    { name: "Хүлээгдэж байна", value: "pending" },
   ];
   const [selectedStatus, setSelectedStatus] = useState("all")
   const [incomeFilter, setIncomeFilter] = useState("Өнөөдөр");
   const [uploadOrder, setUploadOrder] = useState<paymentType[]> ([])
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const filterButtons = [
+    { label: "Өнөөдөр", value: "Өнөөдөр" },
+    { label: "7 хоног", value: "7хоног" },
+    { label: "1 сар", value: "1сар" },
+  ];
 
   const loadFiltIncome = async () => {
-    if (incomeFilter === "Өнөөдөр") {
+    try {
       const endTime = new Date();
       const startTime = new Date();
-      startTime.setDate(endTime.getDate() - 1);
-      const response = await fetch(
-        `http://localhost:4000/order?startTime=${startTime}&endTime=${endTime}`
-      );
-      const data = await response.json();
-      setUploadOrder(data);
-    }
+      
+      switch (incomeFilter) {
+        case "Өнөөдөр":
+          startTime.setDate(endTime.getDate() - 1);
+          break;
+        case "7хоног":
+          startTime.setDate(endTime.getDate() - 7);
+          break;
+        case "1сар":
+          startTime.setDate(endTime.getDate() - 30);
+          break;
+        default:
+          return;
+      }
 
-    if (incomeFilter === "7хоног") {
-      const endTime = new Date();
-      const startTime = new Date();
-      startTime.setDate(endTime.getDate() - 7);
       const response = await fetch(
-        `http://localhost:4000/order?startTime=${startTime}&endTime=${endTime}`
+        `http://localhost:4000/order?startTime=${startTime.toISOString()}&endTime=${endTime.toISOString()}`
       );
+      
+      if (!response.ok) {
+        throw new Error('Failed to fetch orders');
+      }
+      
       const data = await response.json();
       setUploadOrder(data);
-    }
-    if (incomeFilter === "1сар") {
-      const endTime = new Date();
-      const startTime = new Date();
-      startTime.setDate(endTime.getDate() - 30);
-      const response = await fetch(
-        `http://localhost:4000/order?startTime=${startTime}&endTime=${endTime}`
-      );
-      const data = await response.json();
-      setUploadOrder(data);
+      console.log(data);
+    } catch (error) {
+      console.error('Error loading orders:', error);
     }
   };
+
+  const filteredOrders = uploadOrder.filter(order => {
+    if (!order) return false;
+    const matchesStatus = selectedStatus === "all" || 
+      (selectedStatus === "pending" && !order.paymentStatus);
+    const matchesSearch = searchQuery === "" || 
+      order.orderNumber?.toString().includes(searchQuery) ||
+      order.userId?.userName?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      order.userId?.email?.toLowerCase().includes(searchQuery.toLowerCase());
+    return matchesStatus && matchesSearch;
+  });
+
   useEffect(() => {
     loadFiltIncome();
   }, [incomeFilter]);
 
   return (
     <div className="flex max-w-[1440px]">
-      <DashboardAside />
-      <div className="flex flex-col w-full">
+      <div className="bg-[#FFFFFF] w-[222px]">
+        <DashboardAside />
+      </div>
+      <div className="flex flex-col gap-6 w-full">
         <div className="flex font-normal text-sm text-[#3F4145]">
           {orderStatus.map((item) => (
-            <div key={item.name} className="p-4 cursor-pointer">
+            <div 
+              key={item.name} 
+              className={`p-4 cursor-pointer ${selectedStatus === item.value ? 'text-[#18BA51] font-semibold' : ''}`}
+              onClick={() => setSelectedStatus(item.value)}
+            >
               {item.name}
             </div>
           ))}
         </div>
         <div className="mx-[23.5px] mt-[34px] mb-6 flex justify-between ">
           <div className="flex  gap-2">
-            <Button
-              onClick={() => {
-                setIncomeFilter("Өнөөдөр");
-                loadFiltIncome();
-              }}
-              className={` ${
-                incomeFilter === "Өнөөдөр"
-                  ? "bg-[#18BA51] text-white"
-                  : "bg-white text-black"
-              }  w-[94px] border-[#ECEDF0] hover:bg-[#18BA51] hover:font-bold hover:text-white border-[1px]  h-[36px] py-1.5 px-3 rounded-md text-[14px] `}
-            >
-              Өнөөдөр
-            </Button>
-            <Button
-              onClick={() => {
-                setIncomeFilter("7хоног");
-                loadFiltIncome();
-              }}
-              className={` ${
-                incomeFilter === "7хоног"
-                  ? "bg-[#18BA51] text-white"
-                  : "bg-white text-black"
-              }  w-[94px] border-[#ECEDF0] hover:bg-[#18BA51] hover:font-bold hover:text-white border-[1px] h-[36px] py-1.5 px-3 rounded-md text-[14px] `}
-            >
-              7 хоног
-            </Button>
-
-            <Button
-              onClick={() => {
-                setIncomeFilter("1сар");
-                loadFiltIncome();
-              }}
-              className={` ${
-                incomeFilter === "1сар"
-                  ? "bg-[#18BA51] text-white"
-                  : "bg-white text-black"
-              }  w-[94px] border-[#ECEDF0] hover:bg-[#18BA51] hover:font-bold hover:text-white border-[1px] h-[36px] py-1.5 px-3 rounded-md text-[14px] `}
-            >
-              1 сар
-            </Button>
+            {filterButtons.map((button) => (
+              <Button
+                key={button.value}
+                onClick={() => {
+                  setIncomeFilter(button.value);
+                }}
+                className={`${
+                  incomeFilter === button.value
+                    ? "bg-[#18BA51] text-white"
+                    : "bg-white text-black"
+                } w-[94px] border-[#ECEDF0] hover:bg-[#18BA51] hover:font-bold hover:text-white border-[1px] h-[36px] py-1.5 px-3 rounded-md text-[14px]`}
+              >
+                {button.label}
+              </Button>
+            ))}
           </div>
           <div className="flex items-center gap-1 px-2 rounded-[8px] border-[#D6D8DB] border">
             <Search className="" />
             <Input
-              className="w-[302px] h-9 outline-none resize-none border-none shadow-none text-sm font-normal focus-visible:ring-0 "
+              className="w-[302px] h-9 outline-none resize-none border-none shadow-none text-sm font-normal focus-visible:ring-0"
               type="input"
               placeholder="Бүтээгдэхүүн хайх"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
             />
           </div>
         </div>
@@ -159,10 +158,10 @@ const Order = () => {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {uploadOrder.map(
+                {filteredOrders.map(
                   (order: paymentType) =>
                     order && (
-                  <TableRow>
+                  <TableRow key={order._id}>
                     <TableCell className=" py-[26px] max-w-[156px]">
                       <p className="text-sm font-semibold px-6">
                         #{order.orderNumber}
@@ -170,9 +169,9 @@ const Order = () => {
                     </TableCell>
                     <TableCell className="px-6 py-4 max-w-[156px] flex flex-col text-left gap-2">
                       <p className="text-sm font-semibold">
-                        {order.userId?.userName || 'Unknown User'}
+                        {order.userId?.userName || 'N/A'}
                       </p>
-                      <p className="text-sm font-normal text-[#3F4145]">{order.userId?.email || 'No email'}</p>
+                      <p className="text-sm font-normal text-[#3F4145]">{order.userId?.email || 'N/A'}</p>
                     </TableCell>
                     <TableCell className="px-6 max-w-[156px]">
                       {dayjs(order?.createAt).format("YYYY-MM-DD")}
@@ -186,13 +185,10 @@ const Order = () => {
                       </div>
                     </TableCell>
                     <TableCell className="px-6 py-4 max-w-[156px]">
-                      {/* {orderStatus.map((item, index) => setSelectedStatus === item.value (
-                        <div key={item.name}>
-                          {item.name}
-                        </div>
-                      ))} */}
-                      <div className="border px-[10px] py-[6px] text-center rounded-full">
-                        {order.paymentStatus}
+                      <div className={`border px-[10px] py-[6px] text-center rounded-full ${
+                        order.paymentStatus ? "bg-blue-100" : "bg-blue-100"
+                      }`}>
+                        {order.paymentStatus ? "Хүлээгдэж байна" : "Хүлээгдэж байна"}
                       </div>
                     </TableCell>
 

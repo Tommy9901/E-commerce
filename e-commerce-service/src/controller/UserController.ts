@@ -48,6 +48,7 @@ export const updateUser = async (req: Request, res: Response) => {
     res.send("find error");
   }
 };
+
 export const getUsers = async (req: Request, res: Response) => {
   try {
     const user = await User.find();

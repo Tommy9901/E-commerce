@@ -5,7 +5,7 @@ import { HeartIconSvg } from "./HeartIcon";
 import Image from "next/image";
 
 import Link from "next/link";
-import { savedProduct } from "@/app/Save/page";
+import { SavedProduct } from "@/app/Save/page";
 import { productItem } from "./types";
 
 type Props = {
@@ -48,7 +48,7 @@ export const Card = ({
   index: number;
 }) => {
   const [ready, setReady] = useState(false);
-  const [savedProduct, setSavedProduct] = useState<savedProduct[]>([]);
+  const [savedProduct, setSavedProduct] = useState<SavedProduct[]>([]);
   const value = useContext(Context);
   if (!savedProduct) return;
 
@@ -94,7 +94,7 @@ export const Card = ({
       const response = await fetch(`http://localhost:4000/Save`);
       const data = await response.json();
       const has = data.findIndex(
-        (item: savedProduct) => item.ProductId == cardItems?._id
+        (item: SavedProduct) => item.ProductId == cardItems?._id
       );
       if (has !== -1) {
         setReady(true);

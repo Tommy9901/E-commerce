@@ -1,17 +1,16 @@
 "use client";
 
-import { useContext, useEffect, useState } from "react";
-
+import { useContext, useEffect } from "react";
 import { BasketCard } from "@/components/BasketCard";
 import { Context } from "@/components/Card";
-
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import Cookies from "js-cookie";
+
 export default function Home() {
   const value = useContext(Context);
-  const [quantity, setQuantity] = useState(1);
   const router = useRouter();
+
   const totalPrice = () => {
     let sum = 0;
     value?.uploadShoppingCart.forEach((product) => {
@@ -19,18 +18,13 @@ export default function Home() {
         sum = sum + product.price * product.productCount;
       }
     });
-    return sum;
+    return sum.toLocaleString('mn-MN') + '₮';
   };
-  useEffect(() => {
-    totalPrice();
-    getShoppingCart();
-  }, [quantity]);
 
   const getShoppingCart = async () => {
     const basketProducts = JSON.parse(
       localStorage.getItem("basketProducts") || "[]"
     );
-
     value?.setUpdateShoppingCart(basketProducts);
   };
 
@@ -62,7 +56,7 @@ export default function Home() {
             <div className="text-xl font-bold">1. Сагс </div>
             <div className="flex flex-col gap-[16px] mt-[16px]">
               {value?.uploadShoppingCart.map((cardItems, index) => (
-                <div key={cardItems.price * cardItems.productCount * index}>
+                <div key={`${cardItems.productId || index}-${cardItems.price}-${cardItems.productCount}`}>
                   <BasketCard
                     index={index}
                     getShoppingCart={getShoppingCart}
@@ -77,16 +71,14 @@ export default function Home() {
               <div> Нийт төлөх дүн: </div>
               <div className="font-bold ">
                 {totalPrice()}
-                <div className="font-bold"></div>
               </div>
             </div>
-            <div className="justify-between flex ">
-              <div className=""></div>
+            <div className="flex justify-end">
               <Button
                 onClick={() => {
                   router.push(`/Basket/Address`);
                 }}
-                className="w-[175px] h-[36px] rounded-2xl bg-[#2563EB] text-center px-[36px] py-[8px] text-[14px] text-white  mt-[36px]"
+                className="w-[175px] h-[36px] rounded-2xl bg-[#2563EB] text-center px-[36px] py-[8px] text-[14px] text-white mt-[36px]"
                 rel="address"
               >
                 Худалдан авах
