@@ -33,6 +33,10 @@ export default function page() {
             <input placeholder="Product details" className="border-2"/>
         </div>
         <div>
+             <p>Product details</p>
+            <input placeholder="Product details" className="border-2"/>
+        </div>
+        <div>
             <p>Products ID</p>
             <input placeholder="Product ID" className="border-2"/>
         </div>
