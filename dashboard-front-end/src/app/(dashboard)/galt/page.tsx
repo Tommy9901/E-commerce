@@ -55,6 +55,14 @@ export default function page() {
                         <img className="w-48 h-48" src={imageUrl}></img>
                 ))}
             </div>    
+            <div>
+                <p>Product images</p>
+                <div className="w-[100%] h-[200px] border-2 grid grid-cols-3 min-w-screen items-center justify-items-center">
+                    {imageUrls.map((imageUrl)=>(
+                        <img className="w-48 h-48" src={imageUrl}></img>
+                    ))}
+                </div>    
+            </div>
         </div>
 
     </div>
