@@ -131,6 +131,13 @@ const Settings = () => {
               Хүргэлт тохируулах
             </Link>
           </div>
+          <div className="flex w-full p-3 border-[1px] items-center rounded-[8px]">
+            <div className="w-3 h-3 rounded-full border-2 border-black mr-2"></div>
+            <div className="flex-1">Хүргэлтийг тохируулна уу</div>
+            <div className=" rounded-[8px] bg-[#ffffff] text-[#121316] border-[1px] px-5 py-2.5 text-base">
+              Хүргэлт тохируулах
+            </div>
+          </div>
         </div>
       </div>
     </div>
